@@ -42,7 +42,7 @@ contract SimpleDEX is Ownable{
     // ============== EVENTOS ==============
 
     event LiquidityAdded(address indexed user, uint256 amountA, uint256 amountB);
-    event LiquidityRemoved();
+    event LiquidityRemoved(address indexed user, uint256 amountA, uint256 amountB);
     event SwappedAforB(address indexed user, uint256 amountAIn, uint256 amountBOut);
     event SwappedBforA(address indexed user, uint256 amountAIn, uint256 amountBOut);
     event SwapPriceCalc();
@@ -115,6 +115,11 @@ contract SimpleDEX is Ownable{
         emit SwappedAforB(msg.sender, amountAIn, amountBOut);
     }
 
+    /**
+     * @dev Intercambia TokenB por TokenA
+     * @param amountBIn Cantidad de TokenB a intercambiar
+     * @param amountAOut Cantidad de TokenA recibida
+     */
     function swapBforA(uint256 amountBIn) external returns (uint256 amountAOut){
         require(amountBIn > 0, "Amount to swap must be greater than 0");
         require(poolA > 0 && poolB > 0, "Insufficient liquidity in pools");
@@ -134,8 +139,32 @@ contract SimpleDEX is Ownable{
         emit SwappedBforA(msg.sender, amountBIn, amountAOut);
     }
 
-    function removeLiquidity(uint256 amountA, uint256 amountB){
+    /**
+     * @dev Retirar liquidez del pool
+     * @param amountA Cantidad de TokenA a retirar
+     * @param amountB Cantidad de TokenB a retirar
+     */
+    function removeLiquidity(uint256 amountA, uint256 amountB) external onlyOwner{
+        require(amountA > 0 && amountB > 0, "Amount must be greater than 0");
+        require(amountA <= poolA && amountB <= poolB, "Insufficient liquidity in pools");
 
+        //Calcular liquidez a quemar
+        uint256 liquidityToBurn = (amountA * totalPool) / poolA;
+            
+        require(liquidityToBurn <= userPool[msg.sender], "Insufficient liquidity by user");
+    
+        //Actualizar pools
+        userPool[msg.sender] -= liquidityToBurn;
+        totalPool -= liquidityToBurn;
+        poolA -= amountA;
+        poolB -= amountB;
+
+        // Transferir tokens al contrato
+        tokenA.transfer(msg.sender, amountA);
+        tokenB.transfer(msg.sender, amountB);    
+
+        //Notificar eventos
+        emit LiquidityRemoved(msg.sender, amountA, amountB);
     }
     function getPrice(address _token){
 
