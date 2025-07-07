@@ -45,7 +45,7 @@ contract SimpleDEX is Ownable{
     event LiquidityRemoved(address indexed user, uint256 amountA, uint256 amountB);
     event SwappedAforB(address indexed user, uint256 amountAIn, uint256 amountBOut);
     event SwappedBforA(address indexed user, uint256 amountAIn, uint256 amountBOut);
-    event SwapPriceCalc();
+    event SwapPriceCalc(address _token, uint256 price);
 
     // ============== CONSTRUCTOR ==============
     constructor(address _tokenA, address _tokenB){
@@ -94,7 +94,7 @@ contract SimpleDEX is Ownable{
     /**
      * @dev Intercambia TokenA por TokenB
      * @param amountAIn Cantidad de TokenA a intercambiar
-     * @param amountBOut Cantidad de TokenB recibida
+     * @return amountBOut Cantidad de TokenB recibida
      */
     function swapAforB(uint256 amountAIn) external returns (uint256 amountBOut){
         require(amountAIn > 0, "Amount to swap must be greater than 0");
@@ -118,7 +118,7 @@ contract SimpleDEX is Ownable{
     /**
      * @dev Intercambia TokenB por TokenA
      * @param amountBIn Cantidad de TokenB a intercambiar
-     * @param amountAOut Cantidad de TokenA recibida
+     * @return amountAOut Cantidad de TokenA recibida
      */
     function swapBforA(uint256 amountBIn) external returns (uint256 amountAOut){
         require(amountBIn > 0, "Amount to swap must be greater than 0");
@@ -166,7 +166,21 @@ contract SimpleDEX is Ownable{
         //Notificar eventos
         emit LiquidityRemoved(msg.sender, amountA, amountB);
     }
-    function getPrice(address _token){
 
+    /**
+     * @dev Relacion de precios de un token con respecto al otro
+     * @param _token Direccion del token a consultar
+     * @return price Precio del token en temrinos del otro
+     */
+    function getPrice(address _token) external returns (uint256 price) {
+        require(_token == address(tokenA) || _token == address(tokenB), "Token not supported");
+
+        if (_token == address(tokenA)){
+            price = (poolB * 1e18) / poolA; // Precio de A en términos de B
+        } else {
+            price = (poolA * 1e18) / poolB; // Precio de B en términos de A
+        }
+        
+        emit SwapPriceCalc(_token, price);
     }
 }

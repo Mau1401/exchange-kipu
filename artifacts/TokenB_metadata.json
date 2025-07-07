@@ -539,11 +539,11 @@
 	},
 	"sources": {
 		"contracts/SimpleDEX.sol": {
-			"keccak256": "0x9cc16d34dd1f27a490046961fa660fff002cfbaa3f2e30c1eb5a3cc9e609476e",
+			"keccak256": "0x1810081cf48e7f8a184e56b9aff31fcf8fc69bede36d6df6c25d1a8c1767f1fa",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f936c3cd33122a8897e7f0462e2af3f7fab82a5bf32ca4fe50170e7781075f0a",
-				"dweb:/ipfs/QmX2TBAYEJRuv7WR7w1sBYrjD5wV85FmGSchmRY9SShPW1"
+				"bzz-raw://f58f705f55fb90cb5d10c579f6e0198cb172a1cda24221f2096f59caf2e3a7c8",
+				"dweb:/ipfs/QmZ3f6oZ3MdaxKzsYzDtqH24FWAzghZVPpDsdw975TJQwH"
 			]
 		},
 		"contracts/SimpleERC20TokenOZ.sol": {
