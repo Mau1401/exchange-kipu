@@ -43,8 +43,8 @@ contract SimpleDEX is Ownable{
 
     event LiquidityAdded(address indexed user, uint256 amountA, uint256 amountB);
     event LiquidityRemoved();
-    event SwappedAforB();
-    event SwappedBforA();
+    event SwappedAforB(address indexed user, uint256 amountAIn, uint256 amountBOut);
+    event SwappedBforA(address indexed user, uint256 amountAIn, uint256 amountBOut);
     event SwapPriceCalc();
 
     // ============== CONSTRUCTOR ==============
@@ -75,27 +75,65 @@ contract SimpleDEX is Ownable{
             totalPool += liquidityMinted;
         }
 
-        // Transferir tokens al contrato
-        tokenA.transferFrom(msg.sender, address(this), amountA);
-        tokenB.transferFrom(msg.sender, address(this), amountB);
-        
         // Actualiza pools
         poolA += amountA;
         poolB += amountB;
         
         // Actualizar liquidez
         userPool[msg.sender] += liquidityMinted;
-        
+
+        // Transferir tokens al contrato
+        tokenA.transferFrom(msg.sender, address(this), amountA);
+        tokenB.transferFrom(msg.sender, address(this), amountB);
+    
         // Notificar evento
         emit LiquidityAdded(msg.sender, amountA, amountB);
     }
 
-    function swapAforB(uint256 amountAIn){
 
-    }
-    function swapBforA(uint256 amountBIn){
+    /**
+     * @dev Intercambia TokenA por TokenB
+     * @param amountAIn Cantidad de TokenA a intercambiar
+     * @param amountBOut Cantidad de TokenB recibida
+     */
+    function swapAforB(uint256 amountAIn) external returns (uint256 amountBOut){
+        require(amountAIn > 0, "Amount to swap must be greater than 0");
+        require(poolA > 0 && poolB > 0, "Insufficient liquidity in pools");
 
+        // Calcular  los precios de intercambio a partir de la formula del producto constante
+        amountBOut = (poolB * amountAIn) / (poolA + amountAIn);
+        
+        // Actualiza pools
+        poolA += amountAIn;
+        poolB -= amountBOut;
+
+        // Transferir tokens
+        tokenA.transferFrom(msg.sender, address(this), amountAIn);
+        tokenB.transfer(msg.sender, amountBOut);
+
+        // Notifica evento
+        emit SwappedAforB(msg.sender, amountAIn, amountBOut);
     }
+
+    function swapBforA(uint256 amountBIn) external returns (uint256 amountAOut){
+        require(amountBIn > 0, "Amount to swap must be greater than 0");
+        require(poolA > 0 && poolB > 0, "Insufficient liquidity in pools");
+
+        // Calcular  los precios de intercambio a partir de la formula del producto constante
+        amountAOut = (poolA * amountBIn) / (poolB + amountBIn);
+        
+        // Actualiza pools
+        poolB += amountBIn;
+        poolA -= amountAOut;
+
+        // Transferir tokens
+        tokenB.transferFrom(msg.sender, address(this), amountBIn);
+        tokenA.transfer(msg.sender, amountAOut);
+
+        // Notifica evento
+        emit SwappedBforA(msg.sender, amountBIn, amountAOut);
+    }
+
     function removeLiquidity(uint256 amountA, uint256 amountB){
 
     }
