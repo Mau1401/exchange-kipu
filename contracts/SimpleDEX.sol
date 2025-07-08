@@ -4,8 +4,8 @@ pragma solidity ^0.8.20;
 import "./TokenA.sol"; 
 import "./TokenB.sol"; 
 // Data for deploy
-//_tokenA: 0x4023e8378F232CB8B478a1611619CD1Eb2460498 / 0xda8775bD1f2B1582D12503402859419cdeDf54AA
-//_tokenB: 0x8e60A1B73175E814BE94978054b5AED9e06baC26 / 0xaf1D211422f3022f445A3fE7B352EF5883F0f1e3
+//_tokenA: 0x064a947c4A959e9aa87595e0ADf826EA2165BdA5   
+//_tokenB: 0x18E00E0b6789F8f2c1B9F69A5E8fAbf5f9FAc839  
 
 
 contract SimpleDEX {
@@ -141,9 +141,9 @@ contract SimpleDEX {
         require(_token == address(tokenA) || _token == address(tokenB), "Token not supported");
 
         if (_token == address(tokenA)){
-            price = (poolB * 1e18) / poolA; // Precio de A en términos de B
+            price = (poolA * 1e18) / poolB; // Precio de A en términos de B
         } else {
-            price = (poolA * 1e18) / poolB; // Precio de B en términos de A
+            price = (poolB * 1e18) / poolA; // Precio de B en términos de A
         }
 
     }

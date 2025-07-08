@@ -320,11 +320,11 @@
 	},
 	"sources": {
 		"contracts/SimpleDEX.sol": {
-			"keccak256": "0xb17138704cac2279b0aad6d662b615848efedc96cf64efd616aacdecf8e8ec39",
+			"keccak256": "0xcc44d6316c8c7125c08bf3e8ea29f1e2abbbdf94f453e36e6bb20bbf0df4d46e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1bc76bc024719c5a8caaa6e8fe0465c8f96686f10a273ac6704e5bbb5d0bae36",
-				"dweb:/ipfs/Qme9cSiobsaB7C3E4B3b1XL3dBCrnydLcpxidv5bGr2uEx"
+				"bzz-raw://bc6d06bf20d6dee35ebe83c4b3abc38943b8ea6070f991779cad02e472b970a7",
+				"dweb:/ipfs/QmeNe2DZEzVcmGGfRY4mNEZ7QdcSJ7mR4k2jPMZEzWzx9N"
 			]
 		},
 		"contracts/TokenA.sol": {
