@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 
 import "./TokenA.sol"; 
 import "./TokenB.sol"; 
+// Data for deploy
+//_tokenA: 0x4023e8378F232CB8B478a1611619CD1Eb2460498 / 0xda8775bD1f2B1582D12503402859419cdeDf54AA
+//_tokenB: 0x8e60A1B73175E814BE94978054b5AED9e06baC26 / 0xaf1D211422f3022f445A3fE7B352EF5883F0f1e3
+
 
 contract SimpleDEX {
     // ============== VARIABLES ==============
@@ -18,7 +22,6 @@ contract SimpleDEX {
     event LiquidityRemoved(uint256 amountA, uint256 amountB);
     event SwappedAforB(address indexed user, uint256 amountAIn, uint256 amountBOut);
     event SwappedBforA(address indexed user, uint256 amountAIn, uint256 amountBOut);
-    event SwapPriceCalc(address _token, uint256 price);
 
     // ============== CONSTRUCTOR ==============
     constructor(address _tokenA, address _tokenB){
@@ -32,6 +35,7 @@ contract SimpleDEX {
         require(msg.sender == owner, "Only owner");
         _;
     }
+    
     // ============== FUNCIONES EXTENDIDAS ==============
     /**
      * @dev Agrega liquidez 
@@ -133,7 +137,7 @@ contract SimpleDEX {
      * @param _token Direccion del token a consultar
      * @return price Precio del token en temrinos del otro
      */
-    function getPrice(address _token) external returns (uint256 price) {
+    function getPrice(address _token) external view returns (uint256 price) {
         require(_token == address(tokenA) || _token == address(tokenB), "Token not supported");
 
         if (_token == address(tokenA)){
@@ -141,7 +145,6 @@ contract SimpleDEX {
         } else {
             price = (poolA * 1e18) / poolB; // Precio de B en términos de A
         }
-        
-        emit SwapPriceCalc(_token, price);
+
     }
 }

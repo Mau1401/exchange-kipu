@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.20+commit.a1b79de6"
 	},
 	"language": "Solidity",
 	"output": {
@@ -57,25 +57,6 @@
 					}
 				],
 				"name": "LiquidityRemoved",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "_token",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "price",
-						"type": "uint256"
-					}
-				],
-				"name": "SwapPriceCalc",
 				"type": "event"
 			},
 			{
@@ -162,7 +143,7 @@
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -326,7 +307,7 @@
 		"compilationTarget": {
 			"contracts/SimpleDEX.sol": "SimpleDEX"
 		},
-		"evmVersion": "prague",
+		"evmVersion": "shanghai",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -379,27 +360,27 @@
 			]
 		},
 		"contracts/SimpleDEX.sol": {
-			"keccak256": "0x478e2497c975d19ca61635862f79ac981073f372a86270310245e286b050e07d",
+			"keccak256": "0xb17138704cac2279b0aad6d662b615848efedc96cf64efd616aacdecf8e8ec39",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b407d59b5acdd4031b8c76550fafab3644eda49f9cd729cf56695ab2d38dc7c3",
-				"dweb:/ipfs/QmexGCuHkmQyFt6RdVFsRZE6SYUTreteiCLev2qHyNUrsE"
+				"bzz-raw://1bc76bc024719c5a8caaa6e8fe0465c8f96686f10a273ac6704e5bbb5d0bae36",
+				"dweb:/ipfs/Qme9cSiobsaB7C3E4B3b1XL3dBCrnydLcpxidv5bGr2uEx"
 			]
 		},
 		"contracts/TokenA.sol": {
-			"keccak256": "0xc9bc575dc3b31f317c5efda342fdc94a9d8cdafb9034a9acc78ec3c75b9cd761",
+			"keccak256": "0x24c822ae1bf51f5928e5fd83d55d5019f8a7f0caa1300e68db6321c5633e1482",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2b7bde9e1e6899cc6c0b585b567f68c444b90c9b63c7e4ea9da2f15a36263034",
-				"dweb:/ipfs/QmeVJcynQCXzfrxxYF18LWRTR6SjgHMNCnKyAYwT2XGHon"
+				"bzz-raw://86395070d45dd8550ba78ef93dd781d5daf5a11fe4de956e7f603965df05b5e8",
+				"dweb:/ipfs/QmYL629waDUKMsT1dRNCaASFs31ksx2qu95U7wiVWQ683B"
 			]
 		},
 		"contracts/TokenB.sol": {
-			"keccak256": "0x769c37584f793ee09cec4e2fb5220099e0f57eea1a085e8e08f01356093a4ebd",
+			"keccak256": "0x1b54c14b465af9ae6fb214ea6e5bb061973864d70b049b38f24ccd60ff1656bc",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7efc98c69cf7f326ca71f9c791e61c959266fe925bb48ab6ab97c07a8e76483d",
-				"dweb:/ipfs/Qmd4WiHmY2u1phBR98wUdZfGw2z1nU549FqmXqMMw4BcG1"
+				"bzz-raw://8913ba0c4c205dc769790110f758f29b3e7100e0dbeb22ba4b887d6d12826662",
+				"dweb:/ipfs/QmULh88TmoY58XV7G4h5sCKH5dau5tHoU3rzFx182AHW55"
 			]
 		}
 	},
